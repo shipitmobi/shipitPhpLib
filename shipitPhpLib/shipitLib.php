@@ -32,7 +32,7 @@ class shipit
 {
 
 	private $msgData;
- 	private $host = "http://ec2-54-149-204-31.us-west-2.compute.amazonaws.com/RestApi/";
+ 	private $host = "http://api.shipit.mobi/RestApi/";
 	public $connectTimeout = 0;
 	public $timeout = 0;
 	private $sslVerifypeer = false;
@@ -41,7 +41,7 @@ class shipit
 		if($login)
 			$this->msgData["userName"] = $login;
 		if($appSecret)
-			$this->msgData["shipITSecretKey"] = $appSecret;
+			$this->msgData["shipitSecretKey"] = $appSecret;
 	}
 
 	/**
@@ -49,7 +49,8 @@ class shipit
 	 * @param	string	$appSecret	shipit Application Secret.
 	 */
 	public function setApp($appSecret) {
-		$this->msgData["shipITSecretKey"] = $appSecret;
+		$this->msgData["shipitSecretKey"] = $appSecret;
+		return $this;
 	}
 
 	/**
@@ -63,6 +64,7 @@ class shipit
 			return;
 		}
 		$this->msgData["presetMessageID"] = $ID;
+		return $this;
 	}
 
 	/**
@@ -76,6 +78,7 @@ class shipit
 			return;
 		}
 		$this->msgData["presetMessageName"] = $name;
+		return $this;
 	}
 
 	/**
@@ -84,6 +87,7 @@ class shipit
 	 */
 	public function setRichPushID($ID) {
 		$this->msgData["richPushID"] = $ID;
+		return $this;
 	}
 
 	/**
@@ -94,6 +98,7 @@ class shipit
 		if(!is_array($pushToken))
 			$pushToken = array($pushToken);
 		$this->msgData["pushToken"] = $pushToken;
+		return $this;
 	}
 
 	/**
@@ -104,6 +109,7 @@ class shipit
 		if(!is_array($channelID))
 			$channelID = array($channelID);
 		$this->msgData["channelID"] = $channelID;
+		return $this;
 	}
 
 	/**
@@ -117,6 +123,7 @@ class shipit
 			$platform = array($platform);
 		}
 		$this->msgData['platform'] = $platform;
+		return $this;
 	}
 
 	/**
@@ -125,6 +132,7 @@ class shipit
 	 */
 	public function setMessage($msg) {
 		$this->msgData["message"] = $msg;
+		return $this;
 	}
 
 	/**
@@ -134,6 +142,7 @@ class shipit
 	 */
 	public function setMsgSendTime($time) {
 		$this->msgData["sendDate"] = $time;
+		return $this;
 	}
 
 	/**
@@ -145,6 +154,7 @@ class shipit
 			$this->msgData["userTimeZoneSensitive"] = true;
 		else
 			$this->msgData["userTimeZoneSensitive"] = false;
+		return $this;
 	}
 
 	/**
@@ -167,6 +177,7 @@ class shipit
 		if(isset($schedule["endDate"]))
 			$scdul["endDate"] = $schedule["endDate"];
 		$this->msgData["scheduling"] = $scdul;
+		return $this;
 	}
 
 	/**
@@ -176,6 +187,7 @@ class shipit
 	public function setAutoPush($name)
 	{
 		$this->msgData["autoPushName"] = $name;
+		return $this;
 	}
 
 	/**
@@ -187,6 +199,7 @@ class shipit
 		if(!is_array($segIDs))
 			$segIDs = array($segIDs);
 		$this->msgData["segmentID"] = $segIDs;
+		return $this;
 	}
 
 	/**
@@ -198,6 +211,7 @@ class shipit
 		if(!is_array($geoIDs))
 			$geoIDs = array($geoIDs);
 		$this->msgData["geoZoneID"] = $geoIDs;
+		return $this;
 	}
 
 	/**
@@ -207,6 +221,7 @@ class shipit
 	public function setTimeZone($tzone)
 	{
 		$this->msgData["timeZone"] = $tzone;
+		return $this;
 	}
 
 	/**
@@ -216,6 +231,7 @@ class shipit
 	public function setLink($url)
 	{
 		$this->msgData["link"] = $url;
+		return $this;
 	}
 
 	/**
@@ -235,6 +251,7 @@ class shipit
 		}
 		$this->msgData["tags"] = $tags;
 		$this->msgData["tagsLogicalCond"] = $condition;
+		return $this;
 	}
 
 	/**
@@ -253,6 +270,7 @@ class shipit
 			$this->msgData["androidFeature"]["androidLed"] = $led;
 		if($ttl !== 86400)
 			$this->msgData["androidFeature"]["androidGcmTTL"] = $ttl;
+		return $this;
 	}
 
 	/**
@@ -274,6 +292,7 @@ class shipit
 			$this->msgData["iOSFeature"]["iOSTTL"] = $ttl;
 		if($badge !== 1)
 			$this->msgData["iOSFeature"]["iOSBadge"] = $badge;
+		return $this;
 	}
 
 	/**
@@ -286,6 +305,7 @@ class shipit
 			$this->msgData["silent"] = true;
 		else
 			$this->msgData["silent"] = false;
+		return $this;
 	}
 
 	/**
@@ -298,6 +318,7 @@ class shipit
 			$this->msgData["vibrate"] = true;
 		else
 			$this->msgData["vibrate"] = false;
+		return $this;
 	}
 
 	/**
@@ -311,6 +332,7 @@ class shipit
 		$this->msgData["customJson"] = $data;
 		if($key)
 			$this->msgData["customJsonKey"] = $key;
+		return $this;
 	}
 
 	/**
@@ -319,6 +341,7 @@ class shipit
 	 */
 	public function setStatsStartDate($date){
 		$this->msgData["startDate"] = $date;
+		return $this;
 	}
 
 	/**
@@ -327,6 +350,16 @@ class shipit
 	 */
 	public function setStatsEndDate($date){
 		$this->msgData["endDate"] = $date;
+		return $this;
+	}
+
+	/**
+	 * Enable/Disable testPush flag to send notification only to test devices.
+	 * @param boolean $testPush
+	 */
+	public function setTestPush($testPush){
+		$this->msgData["testPush"] = $testPush;
+		return $this;
 	}
 
 	/**
@@ -335,6 +368,7 @@ class shipit
 	 */
 	public function setLoginID($login){
 		$this->msgData["userName"] = $login;
+		return $this;
 	}
 
 	/**
@@ -346,7 +380,7 @@ class shipit
 	 */
 	private function sendRequest($method, $cmd, $data) {
 
-		if(!isset($data["shipITSecretKey"]) || empty($data["shipITSecretKey"]))
+		if(!isset($data["shipitSecretKey"]) || empty($data["shipitSecretKey"]))
 			return false;
 
 		$host = $this->host.$cmd;
@@ -360,7 +394,7 @@ class shipit
 		$jsonData = json_encode($data);
 		$ci = curl_init();
 		$headers = array(
-			'X-SHIPIT-SECRET:' . $this->msgData["shipITSecretKey"],
+			'X-SHIPIT-SECRET:' . $this->msgData["shipitSecretKey"],
 			'Content-Type: application/json',
 			'Content-Length: ' . strlen($jsonData)
 		);
@@ -449,83 +483,96 @@ class shipit
 	 */
 	public function appStats(){
 		$response = $this->sendRequest( 'POST' ,'readAppStats', $this->msgData);
+		if(!isset($response["data"]->{'Data'}))
+			return $response;
+
 		$res = $response["data"];
 		$result = array();
 		$i=0;
-		$count = count($res->{'AppStats'});
-		foreach ($res->{'PushStats'} as $pushStats)
+
+		$count = isset($res->{'AppStats'}) ? count($res->{'AppStats'}) : 0;
+		if(isset($res->{'PushStats'}))
 		{
-			$found = false;
-			for($j=0; $j<$count; $j++)
+			foreach ($res->{'PushStats'} as $pushStats)
 			{
-				if((isset($res->{'AppStats'}[$j])) && ($pushStats->{'TimeIntervalInfo'} == $res->{'AppStats'}[$j]->{'TimeIntervalInfo'}))
+				$found = false;
+				for($j=0; $j<$count; $j++)
+				{
+					if((isset($res->{'AppStats'}[$j])) && ($pushStats->{'TimeIntervalInfo'} == $res->{'AppStats'}[$j]->{'TimeIntervalInfo'}))
+					{
+						$result[$i]["TimeIntervalInfo"] = $pushStats->{'TimeIntervalInfo'};
+						$result[$i]["AndroidPushSent"] = $pushStats->{'AndroidPushSent'};
+						$result[$i]["IosPushSent"] = $pushStats->{'IosPushSent'};
+						$result[$i]["AndroidPushOpen"] = $pushStats->{'AndroidPushOpen'};
+						$result[$i]["IosPushOpen"] = $pushStats->{'IosPushOpen'};
+						$result[$i]["AndroidAppOpenNotifDis"] = $res->{'AppStats'}[$j]->{'AndroidAppOpenNotifDis'};
+						$result[$i]["AndroidAppOpenNotifEnb"] = $res->{'AppStats'}[$j]->{'AndroidAppOpenNotifEnb'};
+						$result[$i]["IosAppOpenNotifDis"] = $res->{'AppStats'}[$j]->{'IosAppOpenNotifDis'};
+						$result[$i]["IosAppOpenNotifEnb"] = $res->{'AppStats'}[$j]->{'IosAppOpenNotifEnb'};
+						unset($res->{'AppStats'}[$j]);
+						$found = true;
+						break;
+					}
+				}
+				if(!$found)
 				{
 					$result[$i]["TimeIntervalInfo"] = $pushStats->{'TimeIntervalInfo'};
 					$result[$i]["AndroidPushSent"] = $pushStats->{'AndroidPushSent'};
 					$result[$i]["IosPushSent"] = $pushStats->{'IosPushSent'};
 					$result[$i]["AndroidPushOpen"] = $pushStats->{'AndroidPushOpen'};
 					$result[$i]["IosPushOpen"] = $pushStats->{'IosPushOpen'};
-					$result[$i]["AndroidAppOpenNotifDis"] = $res->{'AppStats'}[$j]->{'AndroidAppOpenNotifDis'};
-					$result[$i]["AndroidAppOpenNotifEnb"] = $res->{'AppStats'}[$j]->{'AndroidAppOpenNotifEnb'};
-					$result[$i]["IosAppOpenNotifDis"] = $res->{'AppStats'}[$j]->{'IosAppOpenNotifDis'};
-					$result[$i]["IosAppOpenNotifEnb"] = $res->{'AppStats'}[$j]->{'IosAppOpenNotifEnb'};
-					unset($res->{'AppStats'}[$j]);
-					$found = true;
-					break;
+					$result[$i]["AndroidAppOpenNotifDis"] = 0;
+					$result[$i]["AndroidAppOpenNotifEnb"] = 0;
+					$result[$i]["IosAppOpenNotifDis"] = 0;
+					$result[$i]["IosAppOpenNotifEnb"] = 0;
 				}
+				$i++;
 			}
-			if(!$found)
+		}
+		if($count)
+		{
+			foreach ($res->{'AppStats'} as $appStats)
 			{
-				$result[$i]["TimeIntervalInfo"] = $pushStats->{'TimeIntervalInfo'};
-				$result[$i]["AndroidPushSent"] = $pushStats->{'AndroidPushSent'};
-				$result[$i]["IosPushSent"] = $pushStats->{'IosPushSent'};
-				$result[$i]["AndroidPushOpen"] = $pushStats->{'AndroidPushOpen'};
-				$result[$i]["IosPushOpen"] = $pushStats->{'IosPushOpen'};
-				$result[$i]["AndroidAppOpenNotifDis"] = 0;
-				$result[$i]["AndroidAppOpenNotifEnb"] = 0;
-				$result[$i]["IosAppOpenNotifDis"] = 0;
-				$result[$i]["IosAppOpenNotifEnb"] = 0;
+				$result[$i]["TimeIntervalInfo"] = $appStats->{'TimeIntervalInfo'};
+				$result[$i]["AndroidPushSent"] = 0;
+				$result[$i]["IosPushSent"] = 0;
+				$result[$i]["AndroidPushOpen"] = 0;
+				$result[$i]["IosPushOpen"] = 0;
+				$result[$i]["AndroidAppOpenNotifDis"] = $appStats->{'AndroidAppOpenNotifDis'};
+				$result[$i]["AndroidAppOpenNotifEnb"] = $appStats->{'AndroidAppOpenNotifEnb'};
+				$result[$i]["IosAppOpenNotifDis"] = $appStats->{'IosAppOpenNotifDis'};
+				$result[$i]["IosAppOpenNotifEnb"] = $appStats->{'IosAppOpenNotifEnb'};
 			}
-			$i++;
 		}
-		foreach ($res->{'AppStats'} as $appStats)
+		if(count($result))
 		{
-			$result[$i]["TimeIntervalInfo"] = $appStats->{'TimeIntervalInfo'};
-			$result[$i]["AndroidPushSent"] = 0;
-			$result[$i]["IosPushSent"] = 0;
-			$result[$i]["AndroidPushOpen"] = 0;
-			$result[$i]["IosPushOpen"] = 0;
-			$result[$i]["AndroidAppOpenNotifDis"] = $appStats->{'AndroidAppOpenNotifDis'};
-			$result[$i]["AndroidAppOpenNotifEnb"] = $appStats->{'AndroidAppOpenNotifEnb'};
-			$result[$i]["IosAppOpenNotifDis"] = $appStats->{'IosAppOpenNotifDis'};
-			$result[$i]["IosAppOpenNotifEnb"] = $appStats->{'IosAppOpenNotifEnb'};
+			usort($result, array("shipit", "cmpTimeInt"));
+			$file = "appStats_".gmdate("Y-m-d_H-i-s").".csv";
+			$output = fopen($file, 'w');
+			fputcsv($output, array('TimeIntervalInfo', 'AndroidPushSent', 'IosPushSent', 'AndroidPushOpen', 'IosPushOpen', 'AndroidAppOpenNotifDis', 'AndroidAppOpenNotifEnb', 'IosAppOpenNotifDis', 'IosAppOpenNotifEnb'));
+			foreach ($result as $res)
+			{
+				if(!$res['AndroidPushSent'])
+					$res['AndroidPushSent'] = 0;
+				if(!$res['IosPushSent'])
+					$res['IosPushSent'] = 0;
+				if(!$res['AndroidPushOpen'])
+					$res['AndroidPushOpen'] = 0;
+				if(!$res['IosPushOpen'])
+					$res['IosPushOpen'] = 0;
+				if(!$res['AndroidAppOpenNotifDis'])
+					$res['AndroidAppOpenNotifDis'] = 0;
+				if(!$res['AndroidAppOpenNotifEnb'])
+					$res['AndroidAppOpenNotifEnb'] = 0;
+				if(!$res['IosAppOpenNotifDis'])
+					$res['IosAppOpenNotifDis'] = 0;
+				if(!$res['IosAppOpenNotifEnb'])
+					$res['IosAppOpenNotifEnb'] = 0;
+				fputcsv($output, array($res['TimeIntervalInfo'], $res['AndroidPushSent'], $res['IosPushSent'], $res['AndroidPushOpen'], $res['IosPushOpen'],
+										$res['AndroidAppOpenNotifDis'], $res['AndroidAppOpenNotifEnb'],$res['IosAppOpenNotifDis'], $res['IosAppOpenNotifEnb']));
+			}
+			fclose($output);
 		}
-		usort($result, array("shipit", "cmpTimeInt"));
-		$file = "appStats_".gmdate("Y-m-d_H-i-s").".csv";
-		$output = fopen($file, 'w');
-		fputcsv($output, array('TimeIntervalInfo', 'AndroidPushSent', 'IosPushSent', 'AndroidPushOpen', 'IosPushOpen', 'AndroidAppOpenNotifDis', 'AndroidAppOpenNotifEnb', 'IosAppOpenNotifDis', 'IosAppOpenNotifEnb'));
-		foreach ($result as $res)
-		{
-			if(!$res['AndroidPushSent'])
-				$res['AndroidPushSent'] = 0;
-			if(!$res['IosPushSent'])
-				$res['IosPushSent'] = 0;
-			if(!$res['AndroidPushOpen'])
-				$res['AndroidPushOpen'] = 0;
-			if(!$res['IosPushOpen'])
-				$res['IosPushOpen'] = 0;
-			if(!$res['AndroidAppOpenNotifDis'])
-				$res['AndroidAppOpenNotifDis'] = 0;
-			if(!$res['AndroidAppOpenNotifEnb'])
-				$res['AndroidAppOpenNotifEnb'] = 0;
-			if(!$res['IosAppOpenNotifDis'])
-				$res['IosAppOpenNotifDis'] = 0;
-			if(!$res['IosAppOpenNotifEnb'])
-				$res['IosAppOpenNotifEnb'] = 0;
-			fputcsv($output, array($res['TimeIntervalInfo'], $res['AndroidPushSent'], $res['IosPushSent'], $res['AndroidPushOpen'], $res['IosPushOpen'],
-									$res['AndroidAppOpenNotifDis'], $res['AndroidAppOpenNotifEnb'],$res['IosAppOpenNotifDis'], $res['IosAppOpenNotifEnb']));
-		}
-		fclose($output);
 		unset($response["data"]);
 		return $response;
 	}
@@ -538,6 +585,9 @@ class shipit
 	public function userStats()
 	{
 		$response = $this->sendRequest( 'POST', 'userStats', $this->msgData);
+		if(!isset($response["data"]->{'Data'}))
+			return $response;
+
 		$res = $response["data"]->{'Data'};
 		$result = array();
 		$i=0;
@@ -550,22 +600,25 @@ class shipit
 			$result[$i]["IosPushOpen"] = $stats->{'IosPushOpen'};
 			$i++;
 		}
-		$file = "userStats_".date("Y-m-d_H-i-s").".csv";
-		$output = fopen($file, 'w');
-		fputcsv($output, array('TimeIntervalInfo', 'AndroidPushSent', 'IosPushSent', 'AndroidPushOpen', 'IosPushOpen'));
-		foreach ($result as $res)
+		if(count($result))
 		{
-			if(!$res['AndroidPushSent'])
-				$res['AndroidPushSent'] = 0;
-			if(!$res['IosPushSent'])
-				$res['IosPushSent'] = 0;
-			if(!$res['AndroidPushOpen'])
-				$res['AndroidPushOpen'] = 0;
-			if(!$res['IosPushOpen'])
-				$res['IosPushOpen'] = 0;
-			fputcsv($output, array($res['TimeIntervalInfo'], $res['AndroidPushSent'], $res['IosPushSent'], $res['AndroidPushOpen'], $res['IosPushOpen']));
+			$file = "userStats_".date("Y-m-d_H-i-s").".csv";
+			$output = fopen($file, 'w');
+			fputcsv($output, array('TimeIntervalInfo', 'AndroidPushSent', 'IosPushSent', 'AndroidPushOpen', 'IosPushOpen'));
+			foreach ($result as $res)
+			{
+				if(!$res['AndroidPushSent'])
+					$res['AndroidPushSent'] = 0;
+				if(!$res['IosPushSent'])
+					$res['IosPushSent'] = 0;
+				if(!$res['AndroidPushOpen'])
+					$res['AndroidPushOpen'] = 0;
+				if(!$res['IosPushOpen'])
+					$res['IosPushOpen'] = 0;
+				fputcsv($output, array($res['TimeIntervalInfo'], $res['AndroidPushSent'], $res['IosPushSent'], $res['AndroidPushOpen'], $res['IosPushOpen']));
+			}
+			fclose($output);
 		}
-		fclose($output);
 		unset($response["data"]);
 		return $response;
 	}
